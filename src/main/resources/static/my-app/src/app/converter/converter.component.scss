@@ -1,0 +1,35 @@
+.mat-elevation-z2{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.output-container {
+  flex: 1;
+  width: 1000px;
+}
+.input-container{
+  flex: 1;
+  width: 1000px;
+}
+.output-container .mat-mdc-form-field {
+display: block;
+}
+
+.input-container  .mat-mdc-form-field{
+  display: block;
+
+}
+.output-container textarea {
+  height: 500px;
+  width: 99%;
+  font-size: 22px;
+  resize: none;
+
+}
+.input-container textarea {
+  height: 500px;
+  width: 99%;
+  font-size: 22px;
+  resize: none;
+
+}

@@ -1,0 +1,43 @@
+<div class="mat-elevation-z2">
+  <div class="input-container">
+    <!-- Select box cho dữ liệu đầu vào -->
+    <mat-form-field class="input-select">
+      <mat-label>Chọn định dạng dữ liệu đầu vào</mat-label>
+      <mat-select (selectionChange)="onSelectChangeIn($event)"  [(ngModel)]="selectedInputFormat">
+        <mat-option  value="string">String</mat-option>
+        <mat-option value="base64">Base64</mat-option>
+        <mat-option value="hex">Hex</mat-option>
+        <mat-option value="byte[]">Byte[]</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Input cho dữ liệu đầu vào -->
+    <div class="mat-form-field">
+      <textarea  matInput placeholder="Nhập dữ liệu" [(ngModel)]="inputData"></textarea>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <!-- Nút chuyển đổi ở giữa -->
+    <button mat-raised-button class="mat-button mat-primary" (click)="convertData()">Chuyển đổi</button>
+  </div>
+
+  <div class="output-container">
+    <!-- Select box cho dữ liệu đầu ra -->
+    <mat-form-field class="output-select">
+      <mat-label>Chọn định dạng dữ liệu đầu ra</mat-label>
+      <mat-select (selectionChange)="onSelectChangeOut($event)" [(ngModel)]="selectedOutputFormat">
+        <mat-option  value="string">String</mat-option>
+        <mat-option  value="base64">Base64</mat-option>
+        <mat-option value="hex">Hex</mat-option>
+        <mat-option value="byte[]">Byte[]</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Kết quả -->
+    <div class="mat-form-field">
+      <textarea matInput placeholder="Kết quả" [value]="outputData"></textarea>
+    </div>
+  </div>
+</div>
