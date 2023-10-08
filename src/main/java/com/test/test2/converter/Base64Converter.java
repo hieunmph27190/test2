@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 @Component
-public class Base64Converter  {
+public class Base64Converter implements Converter {
 
     public String convertToString(String base64)  throws  Exception{
         try {
@@ -54,5 +54,18 @@ public class Base64Converter  {
         commonData.setData(new String(base64Bytes));
         commonData.setFormat("base64");
         return commonData;
+    }
+
+    @Override
+    public String encode(String input) {
+        byte[] bytes = input.getBytes();
+        byte[] encodedBytes = Base64.getEncoder().encode(bytes);
+        return new String(encodedBytes);
+    }
+
+    @Override
+    public String decode(String input) {
+        byte[] decodedBytes = Base64.getDecoder().decode(input.getBytes());
+        return new String(decodedBytes);
     }
 }

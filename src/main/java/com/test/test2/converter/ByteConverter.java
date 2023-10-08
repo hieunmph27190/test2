@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
-public class ByteConverter  {
+public class ByteConverter implements Converter  {
 
     public String convertToString(String bitString)throws  Exception {
         try {
@@ -60,4 +60,39 @@ public class ByteConverter  {
         commonData.setFormat("byte[]");
         return commonData;
     }
+
+    @Override
+    public String encode(String input) {
+        {
+            try {
+                StringBuffer stringBuffer = new StringBuffer();
+                byte[] bytes = input.getBytes(StandardCharsets.UTF_8);
+                for (byte b : bytes){
+                    stringBuffer.append(String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0'));;
+                }
+                return stringBuffer.toString();
+            }catch (Exception e){
+                throw e;
+            }
+        }
+
+    }
+
+    @Override
+    public String decode(String input) {
+        try {
+
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < input.length(); i += 8) {
+                String eightBits = input.substring(i, Math.min(i + 8, input.length()));
+                int decimalValue = Integer.parseInt(eightBits, 2);
+                result.append((char) decimalValue);
+            }
+            return result.toString();
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
 }

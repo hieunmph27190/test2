@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
-public class StringConverter  {
+public class StringConverter  implements Converter {
 
     public String convertToBase64(String string)throws  Exception {
         try {
@@ -39,13 +39,19 @@ public class StringConverter  {
         }
     }
 
-
-
-
     public CommonData convertToCommon(String data) {
         CommonData commonData = new CommonData();
         commonData.setData(data);
         commonData.setFormat("string");
         return commonData;
+    }
+    @Override
+    public String encode(String input) {
+        return input;
+    }
+
+    @Override
+    public String decode(String input) {
+        return input;
     }
 }

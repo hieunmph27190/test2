@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
-public class HexConverter  {
+public class HexConverter implements  Converter {
 
     public String convertToString(String hex)throws  Exception {
         try {
@@ -59,5 +59,42 @@ public class HexConverter  {
             data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i + 1), 16));
         }
         return data;
+    }
+    @Override
+    public String encode(String input) {
+        return bytesToHex(input.getBytes()); // Chuyển đổi String thành định dạng Hex
+    }
+
+    @Override
+    public String decode(String input) {
+        return new String(hexToBytes(input)); // Chuyển đổi từ Hex thành String
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        try {
+            return Hex.encodeHexString(bytes);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    private static byte[] hexToBytes(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i + 1), 16));
+        }
+        return data;
+    }
+    public byte[] toByteArray(String bitString) {
+        int length = bitString.length();
+        byte[] byteArray = new byte[length / 8];
+
+        for (int i = 0; i < length; i += 8) {
+            String byteString = bitString.substring(i, i + 8);
+            byte byteValue = (byte) Integer.parseInt(byteString, 2);
+            byteArray[i / 8] = byteValue;
+        }
+        return byteArray;
     }
 }

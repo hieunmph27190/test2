@@ -7,12 +7,26 @@ import {HttpClient, HttpHeaders } from'@angular/common/http'
 })
 export class ConverterComponent {
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    // Gọi API để lấy danh sách các định dạng đầu ra
+    this.http.get<any>('/api/datatype').subscribe((data) => {
+      this.dataFormats = data;
+    });
+  }
   currentSelectedInputFormat: string = 'string'
   currentSelectedOutputFormat: string = 'base64'
   selectedInputFormat= "string";
   selectedOutputFormat= "base64";
   inputData = '';
   outputData = '';
+  dataFormats: { [key: string]: string } = {
+
+};
+
+  getOutputFormatKeys(): string[] {
+    return Object.keys(this.dataFormats);
+  }
 
 
 onSelectChangeOut(event: any) {

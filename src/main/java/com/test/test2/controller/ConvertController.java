@@ -1,6 +1,8 @@
 package com.test.test2.controller;
 
 
+import com.test.test2.adapter.ConverterAdapter;
+import com.test.test2.contans.DataType;
 import com.test.test2.converter.Converter;
 
 import com.test.test2.dto.ConvertRequest;
@@ -19,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ConvertController {
     @Autowired
-    Converter converter;
+    ConverterAdapter convert;
 
     @PostMapping("/convert")
     public ResponseEntity<Object> convertData(@Valid @RequestBody ConvertRequest request, BindingResult bindingResult) {
@@ -35,7 +37,7 @@ public class ConvertController {
         CommonData commonData = request.getCommonData();
         Object result;
         try {
-          result = converter.convert(commonData);
+          result = convert.convert(commonData);
         }catch (Exception exception){
             System.out.println(exception);
             return ResponseEntity.badRequest().body(new ConvertResponse(exception.getMessage()));
@@ -44,8 +46,12 @@ public class ConvertController {
         ConvertResponse response = new ConvertResponse(result);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("test")
-    public byte[] test(){
-        return "abcdef".getBytes();
+    @GetMapping("/datatype")
+    public Object test(){
+        Map<String,String> map = new HashMap<>();
+        for (DataType dataType:DataType.values()){
+            map.put(dataType.getStringValue(), dataType.getStringValue().substring(0,1).toUpperCase() +dataType.getStringValue().substring(1));
+        }
+        return map;
     }
 }

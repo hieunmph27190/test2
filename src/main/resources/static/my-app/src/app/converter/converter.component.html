@@ -3,12 +3,10 @@
     <!-- Select box cho dữ liệu đầu vào -->
     <mat-form-field class="input-select">
       <mat-label>Chọn định dạng dữ liệu đầu vào</mat-label>
-      <mat-select (selectionChange)="onSelectChangeIn($event)"  [(ngModel)]="selectedInputFormat">
-        <mat-option  value="string">String</mat-option>
-        <mat-option value="base64">Base64</mat-option>
-        <mat-option value="hex">Hex</mat-option>
-        <mat-option value="byte[]">Byte[]</mat-option>
-
+      <mat-select (selectionChange)="onSelectChangeIn($event)" [(ngModel)]="selectedInputFormat">
+        <mat-option *ngFor="let key of getOutputFormatKeys()" [value]="key">
+          {{ dataFormats[key] }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -27,12 +25,11 @@
     <!-- Select box cho dữ liệu đầu ra -->
     <mat-form-field class="output-select">
       <mat-label>Chọn định dạng dữ liệu đầu ra</mat-label>
-      <mat-select (selectionChange)="onSelectChangeOut($event)" [(ngModel)]="selectedOutputFormat">
-        <mat-option  value="string">String</mat-option>
-        <mat-option  value="base64">Base64</mat-option>
-        <mat-option value="hex">Hex</mat-option>
-        <mat-option value="byte[]">Byte[]</mat-option>
-      </mat-select>
+    <mat-select (selectionChange)="onSelectChangeOut($event)" [(ngModel)]="selectedOutputFormat">
+      <mat-option *ngFor="let key of getOutputFormatKeys()" [value]="key">
+        {{ dataFormats[key] }}
+      </mat-option>
+    </mat-select>
     </mat-form-field>
 
     <!-- Kết quả -->
